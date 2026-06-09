@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}Hasil Rekomendasi – LaptopAI{% endblock %}
+
+{% block content %}
+
+<!-- ── Header ── -->
+<section class="results-hero py-5">
+  <div class="results-hero-glow"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <a href="{{ url_for('index') }}" class="btn btn-back mb-3">
+          <i class="bi bi-arrow-left me-2"></i>Ubah Pencarian
+        </a>
+        <h1 class="results-title mb-2">
+          <i class="bi bi-stars text-accent me-3"></i>Hasil Rekomendasi
+        </h1>
+        <p class="text-muted mb-0">
+          Ditemukan <strong class="text-white">{{ total }}</strong> laptop terbaik untuk kebutuhan Anda
+        </p>
+      </div>
+      <div class="col-md-4 mt-3 mt-md-0">
+        <div class="query-summary">
+          <div class="qs-row">
+            <span class="qs-label"><i class="bi bi-wallet2 me-1"></i>Budget</span>
+            <span class="qs-value">{{ budget | currency }}</span>
+          </div>
+          <div class="qs-row">
+            <span class="qs-label"><i class="bi bi-memory me-1"></i>RAM</span>
+            <span class="qs-value">{{ ram }} GB</span>
+          </div>
+          <div class="qs-row">
+            <span class="qs-label"><i class="bi bi-hdd me-1"></i>Storage</span>
+            <span class="qs-value">
+              {% if storage >= 1000 %}{{ (storage // 1000) }} TB{% else %}{{ storage }} GB{% endif %}
+            </span>
+          </div>
+          <div class="qs-row">
+            <span class="qs-label"><i class="bi bi-grid me-1"></i>Kategori</span>
+            <span class="qs-value badge-category">{{ category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Results Grid ── -->
+<section class="py-5">
+  <div class="container">
+    {% if results %}
+    <div class="row g-4">
+      {% for laptop in results %}
+      <div class="col-lg-6">
+        <div class="laptop-card {% if loop.first %}laptop-card-top{% endif %} h-100">
+
+          <!-- Badge rank -->
+          <div class="rank-badge rank-{{ loop.index }}">
+            {% if loop.first %}
+              <i class="bi bi-trophy-fill me-1"></i>#{{ loop.index }} Best Match
+            {% else %}
+              #{{ loop.index }}
+            {% endif %}
+          </div>
+
+          <!-- Card header -->
+          <div class="lc-header">
+            <div>
+              <span class="lc-brand">{{ laptop.brand }}</span>
+              <h3 class="lc-model mt-1">{{ laptop.model }}</h3>
+            </div>
+            <div class="lc-price-block">
+              <span class="lc-price">{{ laptop.price | currency }}</span>
+              <span class="lc-price-label">USD</span>
+            </div>
+          </div>
+
+          <!-- Similarity bar -->
+          <div class="similarity-block mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="sim-label"><i class="bi bi-bullseye me-1"></i>Kesesuaian</span>
+              <span class="sim-value text-{{ laptop.similarity | similarity_color }}">
+                {{ laptop.similarity }}%
+              </span>
+            </div>
+            <div class="progress sim-progress">
+              <div class="progress-bar bg-{{ laptop.similarity | similarity_color }} sim-bar"
+                   role="progressbar"
+                   style="width: 0%"
+                   data-target="{{ laptop.similarity }}">
+              </div>
+            </div>
+          </div>
+
+          <!-- Specs grid -->
+          <div class="specs-grid">
+            <div class="spec-item">
+              <i class="bi bi-cpu spec-icon"></i>
+              <div>
+                <div class="spec-label">Processor</div>
+                <div class="spec-value">{{ laptop.processor }}</div>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="bi bi-memory spec-icon"></i>
+              <div>
+                <div class="spec-label">RAM</div>
+                <div class="spec-value">{{ laptop.ram }} GB</div>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="bi bi-hdd spec-icon"></i>
+              <div>
+                <div class="spec-label">Storage SSD</div>
+                <div class="spec-value">
+                  {% if laptop.storage >= 1000 %}{{ laptop.storage // 1000 }} TB{% else %}{{ laptop.storage }} GB{% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="bi bi-gpu-card spec-icon"></i>
+              <div>
+                <div class="spec-label">GPU</div>
+                <div class="spec-value">{{ laptop.gpu }}</div>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="bi bi-tag spec-icon"></i>
+              <div>
+                <div class="spec-label">Kategori</div>
+                <div class="spec-value">{{ laptop.category }}</div>
+              </div>
+            </div>
+            <div class="spec-item">
+              <i class="bi bi-currency-dollar spec-icon"></i>
+              <div>
+                <div class="spec-label">Harga</div>
+                <div class="spec-value text-accent">{{ laptop.price | currency }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Over-budget warning -->
+          {% if laptop.price > budget %}
+          <div class="over-budget-warn mt-3">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            Melebihi budget sebesar <strong>{{ (laptop.price - budget) | currency }}</strong>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-5">
+      <a href="{{ url_for('index') }}#form-section" class="btn btn-accent btn-lg me-3">
+        <i class="bi bi-arrow-clockwise me-2"></i>Cari Lagi
+      </a>
+      <a href="{{ url_for('history') }}" class="btn btn-outline-secondary btn-lg">
+        <i class="bi bi-clock-history me-2"></i>Lihat Riwayat
+      </a>
+    </div>
+
+    {% else %}
+    <!-- Empty state -->
+    <div class="empty-state text-center py-5">
+      <i class="bi bi-search display-1 text-muted mb-4"></i>
+      <h3 class="text-muted">Tidak ada hasil ditemukan</h3>
+      <p class="text-muted">Coba ubah kriteria pencarian Anda.</p>
+      <a href="{{ url_for('index') }}#form-section" class="btn btn-accent mt-3">
+        Cari Ulang
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Animate progress bars on load
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.sim-bar').forEach(bar => {
+      const target = parseFloat(bar.dataset.target);
+      bar.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)';
+      bar.style.width = target + '%';
+    });
+  }, 300);
+});
+</script>
+{% endblock %}

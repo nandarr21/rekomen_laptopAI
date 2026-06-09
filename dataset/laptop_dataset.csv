@@ -1,0 +1,111 @@
+Brand,Model,Processor,RAM_GB,Storage_SSD_GB,GPU,Category,Price_USD
+ASUS,ROG Strix G16,Intel Core i9-13980HX,32,1000,NVIDIA RTX 4090,Gaming,2999
+ASUS,ROG Zephyrus G14,AMD Ryzen 9 7940HS,16,512,NVIDIA RTX 4060,Gaming,1499
+ASUS,TUF Gaming A15,AMD Ryzen 7 7745HX,16,512,NVIDIA RTX 4060,Gaming,1099
+ASUS,TUF Gaming F15,Intel Core i7-13620H,16,512,NVIDIA RTX 4060,Gaming,999
+ASUS,ROG Flow X16,AMD Ryzen 9 7940HS,32,1000,NVIDIA RTX 4080,Gaming,2499
+ASUS,Vivobook Pro 16,Intel Core i7-13700H,16,512,NVIDIA RTX 4060,Editing,1299
+ASUS,ProArt Studiobook 16,Intel Core i9-13980HX,64,2000,NVIDIA RTX 4090,Editing,3499
+ASUS,Zenbook 14X,Intel Core i9-13900H,32,1000,Intel Iris Xe,Programming,1799
+ASUS,Zenbook Pro 14,Intel Core Ultra 9 185H,32,1000,NVIDIA RTX 4060,Programming,1999
+ASUS,ExpertBook B9,Intel Core i7-1355U,16,512,Intel Iris Xe,Office,1399
+ASUS,Vivobook 15,Intel Core i5-1335U,8,512,Intel Iris Xe,Office,699
+ASUS,Vivobook 16X,Intel Core i7-1360P,16,512,NVIDIA RTX 2050,Office,899
+Dell,XPS 15,Intel Core i9-13900H,32,1000,NVIDIA RTX 4070,Editing,2499
+Dell,XPS 13 Plus,Intel Core i7-1360P,16,512,Intel Iris Xe,Programming,1499
+Dell,Alienware m18,Intel Core i9-13900HX,32,1000,NVIDIA RTX 4090,Gaming,3999
+Dell,Alienware x16,Intel Core i9-13900HX,32,1000,NVIDIA RTX 4080,Gaming,3499
+Dell,G16 Gaming,Intel Core i7-13650HX,16,512,NVIDIA RTX 4060,Gaming,1199
+Dell,G15 Gaming,Intel Core i5-13450HX,16,512,NVIDIA RTX 4050,Gaming,899
+Dell,Inspiron 16 Plus,Intel Core i7-13700H,16,512,NVIDIA RTX 4060,Programming,1299
+Dell,Inspiron 14,Intel Core i5-1335U,16,512,Intel Iris Xe,Office,749
+Dell,Latitude 5540,Intel Core i7-1365U,16,512,Intel Iris Xe,Office,1299
+Dell,Vostro 3520,Intel Core i5-1235U,8,256,Intel Iris Xe,Office,599
+Dell,Precision 7680,Intel Core i9-13950HX,64,2000,NVIDIA RTX 5000,Editing,4999
+HP,Spectre x360 14,Intel Core Ultra 7 155H,32,1000,Intel Arc,Programming,1799
+HP,Spectre x360 16,Intel Core i7-1360P,16,512,NVIDIA RTX 3050,Editing,1699
+HP,ENVY x360 15,AMD Ryzen 7 7730U,16,512,AMD Radeon 680M,Programming,999
+HP,ENVY 16,Intel Core i9-13900H,32,1000,NVIDIA RTX 4060,Editing,1699
+HP,Omen 17,Intel Core i9-13900HX,32,1000,NVIDIA RTX 4080,Gaming,2799
+HP,Omen 16,Intel Core i7-13700HX,16,512,NVIDIA RTX 4070,Gaming,1599
+HP,Victus 16,Intel Core i5-13500HX,16,512,NVIDIA RTX 4060,Gaming,999
+HP,ProBook 450,Intel Core i7-1355U,16,512,Intel Iris Xe,Office,999
+HP,EliteBook 840,Intel Core i7-1365U,16,512,Intel Iris Xe,Office,1499
+HP,Pavilion 15,Intel Core i5-1335U,8,256,Intel Iris Xe,Office,549
+HP,Dev One,AMD Ryzen 7 PRO 6850U,16,512,AMD Radeon 680M,Programming,1099
+Lenovo,ThinkPad X1 Carbon,Intel Core i7-1365U,16,512,Intel Iris Xe,Programming,1699
+Lenovo,ThinkPad X1 Extreme,Intel Core i9-13900H,32,1000,NVIDIA RTX 4070,Editing,2999
+Lenovo,Legion Pro 7i,Intel Core i9-13900HX,32,1000,NVIDIA RTX 4090,Gaming,3499
+Lenovo,Legion Pro 5i,Intel Core i7-13700HX,16,512,NVIDIA RTX 4070,Gaming,1499
+Lenovo,Legion 5 Pro,AMD Ryzen 7 7745HX,16,512,NVIDIA RTX 4070,Gaming,1299
+Lenovo,Legion 5i,Intel Core i5-13500HX,16,512,NVIDIA RTX 4060,Gaming,1099
+Lenovo,IdeaPad Pro 5i,Intel Core i7-13700H,16,512,NVIDIA RTX 4060,Programming,1199
+Lenovo,Yoga 9i,Intel Core i7-1360P,16,512,Intel Iris Xe,Programming,1599
+Lenovo,ThinkBook 16p,AMD Ryzen 9 7945HX,32,1000,NVIDIA RTX 4060,Editing,1799
+Lenovo,ThinkPad P16,Intel Core i9-13950HX,64,2000,NVIDIA RTX 3500,Editing,4499
+Lenovo,IdeaPad Slim 5,AMD Ryzen 7 7730U,16,512,AMD Radeon 610M,Office,799
+Lenovo,IdeaPad 3,Intel Core i5-1235U,8,256,Intel Iris Xe,Office,499
+Lenovo,ThinkPad E14,Intel Core i7-1355U,16,512,Intel Iris Xe,Office,999
+MSI,Titan GT77,Intel Core i9-13980HX,64,2000,NVIDIA RTX 4090,Gaming,4999
+MSI,Raider GE78,Intel Core i9-13980HX,32,1000,NVIDIA RTX 4090,Gaming,3999
+MSI,Vector GP68,Intel Core i9-13900H,32,1000,NVIDIA RTX 4080,Gaming,2499
+MSI,Katana 15,Intel Core i7-13620H,16,512,NVIDIA RTX 4070,Gaming,1299
+MSI,Cyborg 15,Intel Core i5-12450H,16,512,NVIDIA RTX 4050,Gaming,799
+MSI,Creator Z16,Intel Core i9-12900H,32,1000,NVIDIA RTX 3070 Ti,Editing,2999
+MSI,Creator M16,Intel Core i7-13700H,32,1000,NVIDIA RTX 4060,Editing,1999
+MSI,Prestige 16,Intel Core i7-13700H,16,512,NVIDIA RTX 4060,Programming,1499
+MSI,Summit E16,Intel Core i7-1360P,16,512,Intel Arc A370M,Programming,1599
+MSI,Modern 15,Intel Core i7-1355U,16,512,Intel Iris Xe,Office,799
+Apple,MacBook Pro 16 M3 Max,Apple M3 Max,64,1000,Apple M3 Max GPU,Editing,3999
+Apple,MacBook Pro 14 M3 Pro,Apple M3 Pro,18,512,Apple M3 Pro GPU,Programming,1999
+Apple,MacBook Pro 16 M3 Pro,Apple M3 Pro,36,512,Apple M3 Pro GPU,Programming,2499
+Apple,MacBook Air 15 M3,Apple M3,16,512,Apple M3 GPU,Office,1299
+Apple,MacBook Air 13 M3,Apple M3,8,256,Apple M3 GPU,Office,1099
+Apple,MacBook Pro 14 M3,Apple M3,8,512,Apple M3 GPU,Programming,1599
+Acer,Predator Helios 18,Intel Core i9-13900HX,32,1000,NVIDIA RTX 4090,Gaming,3499
+Acer,Predator Helios 16,Intel Core i9-13900HX,16,1000,NVIDIA RTX 4080,Gaming,2499
+Acer,Nitro 17,AMD Ryzen 7 7745HX,16,512,NVIDIA RTX 4060,Gaming,1099
+Acer,Nitro 16,AMD Ryzen 5 7535HS,16,512,NVIDIA RTX 4050,Gaming,799
+Acer,Swift X 16,AMD Ryzen 7 7840U,16,512,NVIDIA RTX 4050,Programming,1299
+Acer,ConceptD 7,Intel Core i7-12700H,32,1000,NVIDIA RTX 3080,Editing,2999
+Acer,Aspire 5,Intel Core i7-1355U,16,512,NVIDIA RTX 2050,Office,799
+Acer,Extensa 15,Intel Core i5-1235U,8,256,Intel Iris Xe,Office,449
+Acer,TravelMate P4,Intel Core i7-1355U,16,512,Intel Iris Xe,Office,999
+Razer,Blade 16,Intel Core i9-13950HX,32,1000,NVIDIA RTX 4090,Gaming,3999
+Razer,Blade 14,AMD Ryzen 9 7945HX,16,1000,NVIDIA RTX 4070,Gaming,2499
+Razer,Blade 15,Intel Core i7-13800H,16,1000,NVIDIA RTX 4070,Gaming,2499
+Razer,Blade Studio 16,Intel Core i9-13950HX,64,2000,NVIDIA RTX 4090,Editing,4999
+Samsung,Galaxy Book3 Ultra,Intel Core i9-13900H,32,1000,NVIDIA RTX 4070,Editing,2499
+Samsung,Galaxy Book3 Pro 360,Intel Core i7-1360P,16,512,Intel Iris Xe,Programming,1699
+Samsung,Galaxy Book3 Pro,Intel Core i5-1340P,16,512,Intel Iris Xe,Office,1299
+Samsung,Galaxy Book3 360,Intel Core i5-1335U,8,512,Intel Iris Xe,Office,999
+Microsoft,Surface Pro 9,Intel Core i7-1265U,16,256,Intel Iris Xe,Office,1799
+Microsoft,Surface Laptop 5,Intel Core i7-1265U,16,512,Intel Iris Xe,Programming,1699
+Microsoft,Surface Laptop Studio 2,Intel Core i7-13700H,32,1000,NVIDIA RTX 4060,Editing,2399
+LG,Gram 17,Intel Core i7-1360P,16,512,Intel Iris Xe,Programming,1799
+LG,Gram 16,Intel Core i7-1360P,16,512,Intel Iris Xe,Office,1499
+LG,Gram 14,Intel Core i5-1340P,16,512,Intel Iris Xe,Office,1299
+LG,Gram Pro 16,Intel Core Ultra 7 155H,32,1000,NVIDIA RTX 3050,Programming,1999
+Huawei,MateBook X Pro,Intel Core i7-1360P,16,1000,Intel Iris Xe,Programming,1699
+Huawei,MateBook 16s,Intel Core i9-12900H,16,1000,Intel Iris Xe,Programming,1499
+Huawei,MateBook D16,Intel Core i5-12450H,16,512,Intel Iris Xe,Office,799
+Xiaomi,RedmiBook Pro 15,Intel Core i7-12650H,16,512,NVIDIA MX550,Office,899
+Xiaomi,Mi Notebook Pro,Intel Core i7-11390H,16,512,NVIDIA MX450,Programming,999
+ASUS,ROG Strix SCAR 16,Intel Core i9-13980HX,32,2000,NVIDIA RTX 4090,Gaming,3999
+ASUS,ROG Strix G15,AMD Ryzen 9 6900HX,16,1000,NVIDIA RTX 3080 Ti,Gaming,1999
+Dell,XPS 17,Intel Core i9-13900H,32,1000,NVIDIA RTX 4060,Editing,2799
+HP,ZBook Studio G10,Intel Core i9-13900H,32,1000,NVIDIA RTX 4000 Ada,Editing,3499
+Lenovo,Legion Slim 5,AMD Ryzen 7 7745HX,16,512,NVIDIA RTX 4060,Gaming,1199
+MSI,GS76 Stealth,Intel Core i9-11900H,32,1000,NVIDIA RTX 3080,Gaming,2799
+Acer,Predator Triton 500,Intel Core i7-12700H,16,1000,NVIDIA RTX 3080 Ti,Gaming,2499
+ASUS,Zenbook 14 OLED,Intel Core i5-1340P,16,512,Intel Iris Xe,Office,999
+Dell,Inspiron 15,Intel Core i7-1355U,16,512,NVIDIA MX570,Office,899
+HP,Laptop 15s,Intel Core i3-1215U,8,256,Intel Iris Xe,Office,399
+Lenovo,IdeaPad Gaming 3,AMD Ryzen 5 7535HS,16,512,NVIDIA RTX 3050,Gaming,799
+MSI,GF63 Thin,Intel Core i5-12450H,8,512,NVIDIA RTX 4050,Gaming,699
+Acer,Aspire 7,AMD Ryzen 5 5500U,8,512,NVIDIA GTX 1650,Gaming,599
+ASUS,VivoBook 14X OLED,Intel Core i5-12500H,16,512,Intel Iris Xe,Programming,799
+HP,Pavilion x360,Intel Core i5-1335U,16,512,Intel Iris Xe,Programming,749
+Lenovo,Yoga Slim 7,AMD Ryzen 7 7735U,16,512,AMD Radeon 680M,Programming,1099
+Dell,G14,AMD Ryzen 7 7745HX,16,512,NVIDIA RTX 4060,Gaming,1099
+HP,Spectre x360 13.5,Intel Core Ultra 7 155H,16,512,Intel Arc,Programming,1599
