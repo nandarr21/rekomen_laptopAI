@@ -40,7 +40,7 @@ except Exception as exc:
     print(f"⚠  Model belum siap: {exc}")
     print("   Jalankan `python train_model.py` terlebih dahulu.")
 
-# ── Database ──────────────────────────────────────────────────────────────────
+# Database 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -48,11 +48,11 @@ def get_db():
 
 
 def init_db():
-    with get_db() as conn:
-        conn.execute(
-     )
-        conn.commit()
-
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute()
+    conn.commit()
+    conn.close()
 
 init_db()
 
@@ -94,16 +94,12 @@ def get_recommendations(budget: float, ram: int, storage: int, category: str):
 
 
 def save_history(budget, ram, storage, category, results):
-    with get_db() as conn:
-        conn.execute(
-          
-            (
-                budget, ram, storage, category,
-                json.dumps(results),
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            ),
-        )
-        conn.commit()
+    conn = get_db()
+try:
+    conn.execute("...")
+    conn.commit()
+finally:
+    conn.close()
 
 # Routes 
 @app.route("/")
