@@ -11,10 +11,10 @@ from flask import (
     redirect, url_for, flash, jsonify,
 )
 
-# ── App setup ─────────────────────────────────────────────────────────────────
+# -- App setup -----------------------------------------------------------------
 BASE_DIR  = os.path.dirname(os.path.abspath(__file__))
 app       = Flask(__name__)
-app.secret_key = "knn-laptop-recommender-secret-2024"
+app.secret_key = os.environ.get("SECRET_KEY", "knn-laptop-recommender-secret-2024")
 
 DB_PATH       = os.path.join(BASE_DIR, "database.db")
 MODEL_DIR     = os.path.join(BASE_DIR, "model")
@@ -22,7 +22,7 @@ DATASET_CLEAN = os.path.join(BASE_DIR, "dataset", "laptop_clean.csv")
 
 CATEGORY_OPTIONS = ["Programming", "Gaming", "Editing", "Office"]
 
-# ── Load artefak ML ───────────────────────────────────────────────────────────
+# Load artefak ML 
 def load_artifacts():
     knn     = joblib.load(os.path.join(MODEL_DIR, "knn_model.pkl"))
     scaler  = joblib.load(os.path.join(MODEL_DIR, "scaler.pkl"))
@@ -37,8 +37,7 @@ try:
 except Exception as exc:
     MODEL_READY = False
     MODEL_ERROR = str(exc)
-    print(f"⚠  Model belum siap: {exc}")
-    print("   Jalankan `python train_model.py` terlebih dahulu.")
+    print("Model belum siap: {}".format(exc))
 
 # Database 
 def get_db():
@@ -48,58 +47,77 @@ def get_db():
 
 
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute()
-    conn.commit()
-    conn.close()
+    sql = (
+        "CREATE TABLE IF NOT EXISTS search_history ("
+        "id          INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "budget      REAL    NOT NULL, "
+        "ram         INTEGER NOT NULL, "
+        "storage     INTEGER NOT NULL, "
+        "category    TEXT    NOT NULL, "
+        "results     TEXT    NOT NULL, "
+        "searched_at TEXT    NOT NULL"
+        ")"
+    )
+    conn = get_db()
+    try:
+        conn.execute(sql)
+        conn.commit()
+    finally:
+        conn.close()
+
 
 init_db()
 
 # Helper: rekomendasi 
-def get_recommendations(budget: float, ram: int, storage: int, category: str):
-  
+def get_recommendations(budget, ram, storage, category):
     if not MODEL_READY:
         raise RuntimeError("Model belum dilatih. Jalankan train_model.py.")
 
     if category not in CATEGORY_OPTIONS:
-        raise ValueError(f"Kategori tidak valid: {category}")
+        raise ValueError("Kategori tidak valid: {}".format(category))
 
-    cat_enc  = label_encoder.transform([category])[0]
-    user_raw = np.array([[budget, ram, storage, cat_enc]], dtype=float)
+    cat_enc     = label_encoder.transform([category])[0]
+    user_raw    = np.array([[budget, ram, storage, cat_enc]], dtype=float)
     user_scaled = scaler.transform(user_raw)
 
     distances, indices = knn_model.kneighbors(user_scaled)
 
     results = []
     for dist, idx in zip(distances[0], indices[0]):
-        row = df_laptops.iloc[idx]
-        # Konversi jarak Euclidean → skor kemiripan 0-100 %
+        row        = df_laptops.iloc[idx]
         similarity = round(max(0.0, 1 - dist) * 100, 1)
         results.append({
-            "brand":      row["Brand"],
-            "model":      row["Model"],
-            "processor":  row["Processor"],
+            "brand":      str(row["Brand"]),
+            "model":      str(row["Model"]),
+            "processor":  str(row["Processor"]),
             "ram":        int(row["RAM_GB"]),
             "storage":    int(row["Storage_SSD_GB"]),
-            "gpu":        row["GPU"],
-            "category":   row["Category"],
+            "gpu":        str(row["GPU"]),
+            "category":   str(row["Category"]),
             "price":      float(row["Price_USD"]),
             "similarity": similarity,
         })
 
-    # Urutkan: similarity tertinggi di atas
     results.sort(key=lambda x: x["similarity"], reverse=True)
     return results
 
 
 def save_history(budget, ram, storage, category, results):
+    sql = (
+        "INSERT INTO search_history "
+        "(budget, ram, storage, category, results, searched_at) "
+        "VALUES (?, ?, ?, ?, ?, ?)"
+    )
     conn = get_db()
-try:
-    conn.execute("...")
-    conn.commit()
-finally:
-    conn.close()
+    try:
+        conn.execute(sql, (
+            budget, ram, storage, category,
+            json.dumps(results),
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        ))
+        conn.commit()
+    finally:
+        conn.close()
 
 # Routes 
 @app.route("/")
@@ -116,7 +134,6 @@ def recommend():
     if request.method == "GET":
         return redirect(url_for("index"))
 
-    # Validasi input 
     errors = []
 
     try:
@@ -152,12 +169,11 @@ def recommend():
             flash(err, "danger")
         return redirect(url_for("index"))
 
-    # Proses KNN 
     try:
         results = get_recommendations(budget, ram, storage, category)
         save_history(budget, ram, storage, category, results)
     except Exception as exc:
-        flash(f"Terjadi kesalahan saat memproses: {exc}", "danger")
+        flash("Terjadi kesalahan saat memproses: {}".format(exc), "danger")
         return redirect(url_for("index"))
 
     return render_template(
@@ -173,10 +189,13 @@ def recommend():
 
 @app.route("/history")
 def history():
-    with get_db() as conn:
+    conn = get_db()
+    try:
         rows = conn.execute(
-           
+            "SELECT * FROM search_history ORDER BY id DESC LIMIT 50"
         ).fetchall()
+    finally:
+        conn.close()
 
     records = []
     for row in rows:
@@ -195,42 +214,47 @@ def history():
 
 @app.route("/history/delete/<int:record_id>", methods=["POST"])
 def delete_history(record_id):
-    with get_db() as conn:
+    conn = get_db()
+    try:
         conn.execute("DELETE FROM search_history WHERE id = ?", (record_id,))
         conn.commit()
+    finally:
+        conn.close()
     flash("Riwayat berhasil dihapus.", "success")
     return redirect(url_for("history"))
 
 
 @app.route("/history/clear", methods=["POST"])
 def clear_history():
-    with get_db() as conn:
+    conn = get_db()
+    try:
         conn.execute("DELETE FROM search_history")
         conn.commit()
+    finally:
+        conn.close()
     flash("Semua riwayat berhasil dihapus.", "success")
     return redirect(url_for("history"))
 
 
 @app.route("/api/stats")
 def api_stats():
-   
     if not MODEL_READY:
         return jsonify({"error": "Model belum siap."}), 503
 
     stats = {
-        "total_laptops":   int(len(df_laptops)),
-        "brands":          int(df_laptops["Brand"].nunique()),
-        "price_min":       float(df_laptops["Price_USD"].min()),
-        "price_max":       float(df_laptops["Price_USD"].max()),
-        "categories":      df_laptops["Category"].value_counts().to_dict(),
+        "total_laptops": int(len(df_laptops)),
+        "brands":        int(df_laptops["Brand"].nunique()),
+        "price_min":     float(df_laptops["Price_USD"].min()),
+        "price_max":     float(df_laptops["Price_USD"].max()),
+        "categories":    df_laptops["Category"].value_counts().to_dict(),
     }
     return jsonify(stats)
 
 
-# Template filter
+# Template filters 
 @app.template_filter("currency")
 def currency_filter(value):
-    return f"${value:,.0f}"
+    return "${:,.0f}".format(value)
 
 
 @app.template_filter("similarity_color")
@@ -239,8 +263,7 @@ def similarity_color(value):
         return "success"
     elif value >= 60:
         return "warning"
-    else:
-        return "danger"
+    return "danger"
 
 
 if __name__ == "__main__":
